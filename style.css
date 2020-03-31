@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Snake";
+  src: url("media/SnakeChan.ttf");
+}
+
+h1 {
+  font-family: "Snake";
+  font-size: 4em;
+}
