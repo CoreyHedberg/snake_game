@@ -3,7 +3,39 @@
   src: url("media/SnakeChan.ttf");
 }
 
-h1 {
+body {
+  background-image: url("media/background.png");
+  background-repeat: repeat;
+}
+
+header {
+  text-align: center;
+  height: 18em;
+}
+
+header h1 {
   font-family: "Snake";
   font-size: 4em;
+  color: #ffffff;
+}
+
+header h2 {
+  font-family: "Muli";
+  color: #ffffff;
+}
+
+header button {
+  font-family: "Muli";
+  font-size: 1.5em;
+  background-color: #ffffff;
+  border: none;
+  height: 3em;
+  width: 13em;
+  border-radius: 8px;
+}
+
+#game-canvas {
+  margin: auto;
+  background-color: #000000;
+  border: 1px dashed #ffffff;
 }
