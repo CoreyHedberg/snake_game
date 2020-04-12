@@ -1,12 +1,32 @@
-// let canvas; // Used for handle on the information about the dimensions
-// let canvasContext; // Underlying graphical information to draw to
-
 let canvas = document.getElementById("game-canvas");
 let canvasContext = canvas.getContext("2d");
 canvasContext.fillStyle = "black";
 canvasContext.fillRect(0, 0, canvas.width, canvas.height);
-/* canvasContext.fillStyle = "#00205b";
-canvasContext.fillRect(100, 200, 10, 10); */
+
+window.addEventListener("keydown", (e) => {
+  switch (e.keyCode) {
+    case 37:
+      // left key pressed
+      e.preventDefault();
+      console.log(`left`);
+      break;
+    case 38:
+      // up key pressed
+      e.preventDefault();
+      console.log(`up`);
+      break;
+    case 39:
+      // right key pressed
+      e.preventDefault();
+      console.log(`right`);
+      break;
+    case 40:
+      // down key pressed
+      e.preventDefault();
+      console.log(`down`);
+      break;
+  }
+});
 
 document
   .getElementById("place-apple")
