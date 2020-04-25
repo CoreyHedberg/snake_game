@@ -1,11 +1,14 @@
 let canvas = document.getElementById("game-canvas");
 let context = canvas.getContext("2d");
 
+let gameSpeed = 100;
 let foodX = 0;
 let foodY = 0;
 let snakeX = 300;
 let snakeY = 300;
 let snake = [300, 300];
+let directionX = 10;
+let directionY = 10;
 const LEFT_KEY = 37;
 const UP_KEY = 38;
 const RIGHT_KEY = 39;
@@ -22,7 +25,7 @@ let gameStarted = false;
 window.onload = () => {
   drawCanvas();
   drawSnakeSegment();
-  beforeGameMessage();
+  // beforeGameMessage();
 };
 
 window.addEventListener("keydown", (e) => {
