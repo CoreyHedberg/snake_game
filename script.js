@@ -25,9 +25,7 @@ const APPLE_BORDER_COLOR = "#820000";
 let gameStarted = false;
 
 window.onload = () => {
-  drawCanvas();
-  drawSnakeSegment();
-  // beforeGameMessage();
+  drawEverything();
 };
 
 window.addEventListener("keydown", (e) => {
@@ -36,7 +34,7 @@ window.addEventListener("keydown", (e) => {
       // left key pressed
       e.preventDefault();
       console.log(`left`);
-      moveSnake();
+      moveSnake(e.keyCode);
       break;
     case 38:
       // up key pressed
@@ -56,22 +54,37 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+function drawEverything() {
+  drawCanvas();
+  drawSnake();
+  setInterval(drawSnakeSegment, 100);
+}
+
 // Draws the canvas
 function drawCanvas() {
   context.fillStyle = CANVAS_BACKGROUND_COLOR;
   context.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-function drawSnakeSegment() {
+function drawSnake() {
+  snake.forEach(drawSnakeSegment);
+}
+
+function drawSnakeSegment(snake) {
   context.fillStyle = SNAKE_COLOR;
   context.strokestyle = SNAKE_BORDER_COLOR;
   context.fillRect(snake[0].x, snake[0].y, 10, 10);
   context.strokeRect(snake[0].x, snake[0].y, 10, 10);
 }
 
-document
-  .getElementById("place-apple")
-  .addEventListener("click", placeRandomApple);
+function moveSnake(movement) {
+  console.log(movement);
+  // move snake
+  if (movement === 37) {
+    snake[0].x -= directionX;
+    console.log(snake[0].x);
+  }
+}
 
 // Good function, ready to use.
 function placeRandomApple() {
@@ -89,10 +102,4 @@ function beforeGameMessage() {
   context.fillStyle = "#000000";
   context.font = "30px PixelBoy";
   context.fillText(`Press an arrow key to begin.`, 124, 300);
-}
-
-function moveSnake() {
-  if (e.keyCode === LEFT_KEY) {
-    snake[0].x -= directionX;
-  }
 }
