@@ -4,15 +4,17 @@ let context = canvas.getContext("2d");
 let gameSpeed = 100;
 let foodX = 0;
 let foodY = 0;
-let snakeX = 300;
-let snakeY = 300;
-let snake = [300, 300];
-let directionX = 10;
-let directionY = 10;
+
 const LEFT_KEY = 37;
 const UP_KEY = 38;
 const RIGHT_KEY = 39;
 const DOWN_KEY = 40;
+
+let snake = [{ x: 300, y: 300 }];
+console.log(snake[0].x);
+console.log(snake[0].y);
+let directionX = 10;
+let directionY = 10;
 
 const CANVAS_BACKGROUND_COLOR = "#F5F5DC";
 const SNAKE_COLOR = "#004200";
@@ -34,8 +36,7 @@ window.addEventListener("keydown", (e) => {
       // left key pressed
       e.preventDefault();
       console.log(`left`);
-      snakeX -= 10;
-      drawSnakeSegment();
+      moveSnake();
       break;
     case 38:
       // up key pressed
@@ -64,35 +65,34 @@ function drawCanvas() {
 function drawSnakeSegment() {
   context.fillStyle = SNAKE_COLOR;
   context.strokestyle = SNAKE_BORDER_COLOR;
-  context.fillRect(snakeX, snakeY, 10, 10);
-  context.strokeRect(snakeX, snakeY, 10, 10);
-  console.log(snake[0]);
-  console.log(snake[1]);
+  context.fillRect(snake[0].x, snake[0].y, 10, 10);
+  context.strokeRect(snake[0].x, snake[0].y, 10, 10);
 }
 
 document
   .getElementById("place-apple")
   .addEventListener("click", placeRandomApple);
 
+// Good function, ready to use.
 function placeRandomApple() {
-  foodX = randomTen(0, canvas.width - 10);
-  console.log(`foodX : ${foodX}`);
-  foodY = randomTen(0, canvas.height - 10);
-  console.log(`foodY : ${foodY}`);
+  foodX = Math.floor(Math.random() * 60) * 10;
+  foodY = Math.floor(Math.random() * 60) * 10;
   context.fillStyle = APPLE_COLOR;
   context.strokesytle = APPLE_BORDER_COLOR;
   context.fillRect(foodX, foodY, 10, 10);
   context.strokeRect(foodX, foodY, 10, 10);
 }
 
+// Good function, ready to use.
 function beforeGameMessage() {
   drawCanvas();
   context.fillStyle = "#000000";
   context.font = "30px PixelBoy";
   context.fillText(`Press an arrow key to begin.`, 124, 300);
-  gameStarted = true;
 }
 
-function randomTen(min, max) {
-  return Math.round((Math.random() * (max - min) + min) / 10) * 10;
+function moveSnake() {
+  if (e.keyCode === LEFT_KEY) {
+    snake[0].x -= directionX;
+  }
 }
