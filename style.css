@@ -1,11 +1,11 @@
 @font-face {
   font-family: "Snake";
-  src: url("media/SnakeChan.ttf");
+  src: url("fonts/SnakeChan.ttf");
 }
 
 @font-face {
   font-family: "PixelBoy";
-  src: url("media/pixelboy.ttf");
+  src: url("fonts/pixelboy.ttf");
 }
 
 body {
