@@ -20,18 +20,11 @@ const APPLE_BORDER_COLOR = "#820000";
 
 let score = 0;
 document.getElementById("current-score").innerHTML = score;
+let highScore = 0;
+document.getElementById("high-score").innerHTML = highScore;
 
 let gameStarted = false;
-let gameIsOver = false;
-
-window.onload = () => {
-  createRandomApple();
-  isGameOver();
-  main();
-  // drawCanvas();
-  // drawSnake();
-  // drawSnakeSegment();
-};
+let gameOver = false;
 
 window.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
@@ -62,8 +55,23 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+window.onload = () => {
+  if ((localStorage.getItem("high_score") = "")) {
+    document.getElementById("high-score").innerHTML = 0;
+  } else (
+    let reloadHighScore = localStorage.getItem("high_score");
+    document.getElementById("high-score").innerHTML = reloadHighScore;)
+  }
+  createRandomApple();
+  isGameOver();
+  main();
+  // drawCanvas();
+  // drawSnake();
+  // drawSnakeSegment();
+};
+
 function main() {
-  if (gameIsOver === true) return;
+  if (gameOver === true) return;
   setTimeout(() => {
     drawCanvas();
     drawRandomApple();
@@ -131,8 +139,6 @@ function changeDirection(e) {
 function createRandomApple() {
   foodX = Math.floor(Math.random() * 60) * 10;
   foodY = Math.floor(Math.random() * 60) * 10;
-  console.log(`foodX : ${foodX}`);
-  console.log(`foodY : ${foodY}`);
 
   snake.forEach(function isFoodOnSnake(part) {
     appleIsOnSnake = part.x === foodX && part.y === foodY;
@@ -167,9 +173,14 @@ function isGameOver() {
 
 function gameOver() {
   // save
-  gameIsOver = true;
+  gameOver = true;
+  if (score > highScore) {
+    highScore = score;
+  }
+  localStorage.setItem("high_score", highScore);
   score = 0;
   document.getElementById("current-score").innerHTML = score;
+  document.getElementById("high-score").innerHTML = highScore;
   beforeGameMessage();
 }
 

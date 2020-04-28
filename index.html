@@ -20,10 +20,19 @@
   <body>
     <header>
       <h1>Snake Game</h1>
-      <h2>Let's play the classic snake game.</h2>
+      <h2>Play the classic snake game.</h2>
     </header>
     <section id="score-area">
-      <div id="current-score"></div>
+      <table>
+        <tr id="table-header">
+          <td><img src="media/apple.png" alt="Current Score" /></td>
+          <td><img src="media/trophy.png" alt="High Score" /></td>
+        </tr>
+        <tr id="table-scores">
+          <td id="current-score"></td>
+          <td id="high-score"></td>
+        </tr>
+      </table>
     </section>
     <section id="game-area">
       <canvas id="game-canvas" width="600" height="600"> </canvas>
