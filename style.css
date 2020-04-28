@@ -39,6 +39,10 @@ header button {
   border-radius: 8px;
 }
 
+#current-score {
+  color: #ffffff;
+}
+
 #game-canvas {
   margin: 0 auto;
   display: block;
