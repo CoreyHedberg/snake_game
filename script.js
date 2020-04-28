@@ -6,9 +6,7 @@ let foodY = 0;
 
 let snake = [{ x: 300, y: 300 }];
 let headX = snake[0].x;
-console.log(`headX : ${headX}`);
 let headY = snake[0].y;
-console.log(`headY : ${headY}`);
 let directionX = 0;
 let directionY = 0;
 
@@ -24,7 +22,7 @@ let highScore = 0;
 document.getElementById("high-score").innerHTML = highScore;
 
 let gameStarted = false;
-let gameOver = false;
+let gameIsOver = false;
 
 window.addEventListener("keydown", (e) => {
   switch (e.keyCode) {
@@ -52,26 +50,23 @@ window.addEventListener("keydown", (e) => {
       console.log(`down`);
       changeDirection(e.keyCode);
       break;
+    case 32:
+      restartGame();
+      console.log(`spacebar pressed`);
+      break;
   }
 });
 
 window.onload = () => {
-  if ((localStorage.getItem("high_score") = "")) {
-    document.getElementById("high-score").innerHTML = 0;
-  } else (
-    let reloadHighScore = localStorage.getItem("high_score");
-    document.getElementById("high-score").innerHTML = reloadHighScore;)
-  }
+  let reloadHighScore = localStorage.getItem("high_score");
+  document.getElementById("high-score").innerHTML = reloadHighScore;
   createRandomApple();
   isGameOver();
   main();
-  // drawCanvas();
-  // drawSnake();
-  // drawSnakeSegment();
 };
 
 function main() {
-  if (gameOver === true) return;
+  if (gameIsOver === true) return;
   setTimeout(() => {
     drawCanvas();
     drawRandomApple();
@@ -159,8 +154,7 @@ function isGameOver() {
   for (var i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
       gameOver();
-    }
-    if (
+    } else if (
       snake[0].x < 0 ||
       snake[0].x > canvas.width - 10 ||
       snake[0].y < 0 ||
@@ -172,22 +166,24 @@ function isGameOver() {
 }
 
 function gameOver() {
-  // save
-  gameOver = true;
+  gameIsOver = true;
+  console.log(`gameOver : true`);
   if (score > highScore) {
     highScore = score;
+    localStorage.setItem("high_score", highScore);
+    alert("Congratulations!\nYou achieved a new high score!");
   }
-  localStorage.setItem("high_score", highScore);
-  score = 0;
-  document.getElementById("current-score").innerHTML = score;
+  document.getElementById("current-score").innerHTML = 0;
   document.getElementById("high-score").innerHTML = highScore;
-  beforeGameMessage();
+  drawCanvas();
+  context.fillStyle = "#006600";
+  context.font = "30px PixelBoy";
+  context.fillText("Game Over!", 225, 300);
+  context.fillText("Press the spacebar to play again.", 118, 350);
 }
 
-// Good function, ready to use.
-function beforeGameMessage() {
-  drawCanvas();
-  context.fillStyle = "#000000";
-  context.font = "30px PixelBoy";
-  context.fillText(`Press an arrow key to begin.`, 124, 300);
+function restartGame() {
+  gameIsOver = false;
+  console.log(`restartGame : false`);
+  main();
 }
