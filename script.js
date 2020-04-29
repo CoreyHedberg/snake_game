@@ -17,7 +17,6 @@ const APPLE_BORDER_COLOR = "#820000";
 let score = 0;
 document.getElementById("current-score").innerHTML = score;
 let highScore = 0;
-// document.getElementById("high-score").innerHTML = highScore;
 
 let gameIsOver = false;
 
@@ -66,14 +65,13 @@ window.onload = () => {
 function main() {
   if (gameIsOver === true) return;
   setTimeout(() => {
-    drawCanvas();
+    drawEverything();
     growSnake();
     main();
   }, 100);
 }
 
-// Draws the canvas
-function drawCanvas() {
+function drawEverything() {
   context.fillStyle = CANVAS_BACKGROUND_COLOR;
   context.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -145,8 +143,8 @@ function createRandomApple() {
   foodX = Math.floor(Math.random() * 60) * 10;
   foodY = Math.floor(Math.random() * 60) * 10;
 
-  snake.forEach((part) => {
-    appleIsOnSnake = part.x === foodX && part.y === foodY;
+  snake.forEach((snakeSegment) => {
+    appleIsOnSnake = snakeSegment.x === foodX && snakeSegment.y === foodY;
     if (appleIsOnSnake) {
       createRandomApple();
     }
@@ -162,7 +160,6 @@ function gameOver() {
   highScore = localStorage.getItem("high_score");
   document.getElementById("current-score").innerHTML = 0;
   document.getElementById("high-score").innerHTML = highScore;
-  drawCanvas();
   context.fillStyle = CANVAS_BACKGROUND_COLOR;
   context.fillRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = "#006600";
