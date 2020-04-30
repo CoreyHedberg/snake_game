@@ -15,7 +15,6 @@ const APPLE_COLOR = "#FF0000";
 const APPLE_BORDER_COLOR = "#820000";
 
 let score = 0;
-document.getElementById("current-score").innerHTML = score;
 let highScore = 0;
 
 let gameIsOver = false;
@@ -51,7 +50,8 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
-window.onload = () => {
+(function () {
+  document.getElementById("current-score").innerHTML = score;
   highScore = localStorage.getItem("high_score");
   if (highScore === null) {
     document.getElementById("high-score").innerHTML = 0;
@@ -60,13 +60,15 @@ window.onload = () => {
   }
   createRandomApple();
   main();
-};
+})();
 
 function main() {
   if (gameIsOver === true) return;
   setTimeout(() => {
-    drawEverything();
     growSnake();
+    drawEverything();
+    checkForSnakeEatingItself();
+    checkForSnakeTouchingWall();
     main();
   }, 100);
 }
@@ -101,14 +103,18 @@ function growSnake() {
   } else {
     snake.pop();
   }
+}
 
+function checkForSnakeEatingItself() {
   for (var i = 1; i < snake.length; i++) {
     if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
       gameIsOver = true;
       gameOver();
     }
   }
+}
 
+function checkForSnakeTouchingWall() {
   if (
     snake[0].x < 0 ||
     snake[0].x >= canvas.width ||
