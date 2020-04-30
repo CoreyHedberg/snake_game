@@ -46,7 +46,7 @@ window.addEventListener("keydown", (e) => {
       // SPACEBAR
       e.preventDefault();
       restartGame();
-      console.log(`spacebar pressed`);
+      snake = [{ x: 300, y: 300 }];
       break;
   }
 });
@@ -103,16 +103,20 @@ function growSnake() {
   }
 
   for (var i = 1; i < snake.length; i++) {
-    if (
-      (snake[i].x === snake[0].x && snake[i].y === snake[0].y) ||
-      snake[0].x < 0 ||
-      snake[0].x > canvas.width ||
-      snake[0].y < 0 ||
-      snake[0].y > canvas.height
-    ) {
+    if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
       gameIsOver = true;
       gameOver();
     }
+  }
+
+  if (
+    snake[0].x < 0 ||
+    snake[0].x >= canvas.width ||
+    snake[0].y < 0 ||
+    snake[0].y >= canvas.height
+  ) {
+    gameIsOver = true;
+    gameOver();
   }
 }
 
@@ -155,10 +159,13 @@ function gameOver() {
   if (score > highScore) {
     highScore = score;
     localStorage.setItem("high_score", highScore);
+    score = 0;
+    document.getElementById("current-score").innerHTML = score;
     alert("Congratulations!\nYou achieved a new high score!");
   }
   highScore = localStorage.getItem("high_score");
-  document.getElementById("current-score").innerHTML = 0;
+  score = 0;
+  document.getElementById("current-score").innerHTML = score;
   document.getElementById("high-score").innerHTML = highScore;
   context.fillStyle = CANVAS_BACKGROUND_COLOR;
   context.fillRect(0, 0, canvas.width, canvas.height);
