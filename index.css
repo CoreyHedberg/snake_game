@@ -8,6 +8,11 @@
   src: url("fonts/pixelboy.ttf");
 }
 
+@font-face {
+  font-family: "Muli";
+  src: url("fonts/Muli.ttf");
+}
+
 body {
   background-image: url("media/background.jpg");
   background-repeat: repeat;
@@ -25,7 +30,7 @@ header h1 {
 
 header h2 {
   color: #f5f5dc;
-  font-family: "Muli";
+  font-family: "Muli", sans-serif;
 }
 
 table {
@@ -43,7 +48,7 @@ table {
 #table-scores td {
   text-align: center;
   color: #006600;
-  font-family: "Muli";
+  font-family: "Muli", sans-serif;
   font-size: 4em;
 }
 
