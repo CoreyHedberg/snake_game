@@ -15,26 +15,26 @@ const APPLE_COLOR = "#FF0000"
 const APPLE_BORDER_COLOR = "#820000"
 
 window.addEventListener("keydown", (e) => {
-  switch (e.keyCode) {
+  switch (e.key) {
     case 37:
       // LEFT
       e.preventDefault()
-      changeDirection(e.keyCode)
+      changeDirection(e.key)
       break
     case 38:
       // UP
       e.preventDefault()
-      changeDirection(e.keyCode)
+      changeDirection(e.key)
       break
     case 39:
       // RIGHT
       e.preventDefault()
-      changeDirection(e.keyCode)
+      changeDirection(e.key)
       break
     case 40:
       // DOWN
       e.preventDefault()
-      changeDirection(e.keyCode)
+      changeDirection(e.key)
       break
     case 32:
       // SPACEBAR
