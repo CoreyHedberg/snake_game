@@ -54,6 +54,7 @@ window.addEventListener("keydown", (e) => {
   }
   createRandomApple()
   main()
+  console.log(`game started`)
 })()
 
 function main() {
