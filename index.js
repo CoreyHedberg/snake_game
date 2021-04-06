@@ -1,5 +1,10 @@
-let canvas = document.getElementById("game-canvas")
-let context = canvas.getContext("2d")
+const CANVAS = document.getElementById("game-canvas")
+const CONTEXT = CANVAS.getContext("2d")
+const CANVAS_BACKGROUND_COLOR = "#F5F5DC"
+const SNAKE_COLOR = "#004200"
+const SNAKE_BORDER_COLOR = "#006600"
+const APPLE_COLOR = "#FF0000"
+const APPLE_BORDER_COLOR = "#820000"
 let foodX = 0
 let foodY = 0
 let snake = [{ x: 300, y: 300 }]
@@ -8,35 +13,30 @@ let directionY = 0
 let score = 0
 let highScore = 0
 let gameIsOver = false
-const CANVAS_BACKGROUND_COLOR = "#F5F5DC"
-const SNAKE_COLOR = "#004200"
-const SNAKE_BORDER_COLOR = "#006600"
-const APPLE_COLOR = "#FF0000"
-const APPLE_BORDER_COLOR = "#820000"
 
 window.addEventListener("keydown", (e) => {
   switch (e.key) {
-    case 37:
+    case "ArrowLeft":
       // LEFT
       e.preventDefault()
       changeDirection(e.key)
       break
-    case 38:
+    case "ArrowUp":
       // UP
       e.preventDefault()
       changeDirection(e.key)
       break
-    case 39:
+    case "ArrowRight":
       // RIGHT
       e.preventDefault()
       changeDirection(e.key)
       break
-    case 40:
+    case "ArrowDown":
       // DOWN
       e.preventDefault()
       changeDirection(e.key)
       break
-    case 32:
+    case " ":
       // SPACEBAR
       e.preventDefault()
       restartGame()
@@ -54,7 +54,6 @@ window.addEventListener("keydown", (e) => {
   }
   createRandomApple()
   main()
-  console.log(`game started`)
 })()
 
 function main() {
@@ -69,22 +68,22 @@ function main() {
 }
 
 function drawEverything() {
-  context.fillStyle = CANVAS_BACKGROUND_COLOR
-  context.fillRect(0, 0, canvas.width, canvas.height)
+  CONTEXT.fillStyle = CANVAS_BACKGROUND_COLOR
+  CONTEXT.fillRect(0, 0, CANVAS.width, CANVAS.height)
 
   snake.forEach(drawSnakeSegment)
 
-  context.fillStyle = APPLE_COLOR
-  context.strokesytle = APPLE_BORDER_COLOR
-  context.fillRect(foodX, foodY, 10, 10)
-  context.strokeRect(foodX, foodY, 10, 10)
+  CONTEXT.fillStyle = APPLE_COLOR
+  CONTEXT.strokesytle = APPLE_BORDER_COLOR
+  CONTEXT.fillRect(foodX, foodY, 10, 10)
+  CONTEXT.strokeRect(foodX, foodY, 10, 10)
 }
 
 function drawSnakeSegment(snakeSegment) {
-  context.fillStyle = SNAKE_COLOR
-  context.strokestyle = SNAKE_BORDER_COLOR
-  context.fillRect(snakeSegment.x, snakeSegment.y, 10, 10)
-  context.strokeRect(snakeSegment.x, snakeSegment.y, 10, 10)
+  CONTEXT.fillStyle = SNAKE_COLOR
+  CONTEXT.strokestyle = SNAKE_BORDER_COLOR
+  CONTEXT.fillRect(snakeSegment.x, snakeSegment.y, 10, 10)
+  CONTEXT.strokeRect(snakeSegment.x, snakeSegment.y, 10, 10)
 }
 
 function growSnake() {
@@ -112,9 +111,9 @@ function checkForSnakeEatingItself() {
 function checkForSnakeTouchingWall() {
   if (
     snake[0].x < 0 ||
-    snake[0].x >= canvas.width ||
+    snake[0].x >= CANVAS.width ||
     snake[0].y < 0 ||
-    snake[0].y >= canvas.height
+    snake[0].y >= CANVAS.height
   ) {
     gameIsOver = true
     gameOver()
@@ -126,19 +125,19 @@ function changeDirection(e) {
   const goingDown = directionY === 10
   const goingRight = directionX === 10
   const goingLeft = directionX === -10
-  if (e === 37 && !goingRight) {
+  if (e === "ArrowLeft" && !goingRight) {
     directionX = -10
     directionY = 0
   }
-  if (e === 38 && !goingDown) {
+  if (e === "ArrowUp" && !goingDown) {
     directionX = 0
     directionY = -10
   }
-  if (e === 39 && !goingLeft) {
+  if (e === "ArrowRight" && !goingLeft) {
     directionX = 10
     directionY = 0
   }
-  if (e === 40 && !goingUp) {
+  if (e === "ArrowDown" && !goingUp) {
     directionX = 0
     directionY = 10
   }
@@ -168,12 +167,12 @@ function gameOver() {
   score = 0
   document.getElementById("current-score").innerHTML = score
   document.getElementById("high-score").innerHTML = highScore
-  context.fillStyle = CANVAS_BACKGROUND_COLOR
-  context.fillRect(0, 0, canvas.width, canvas.height)
-  context.fillStyle = "#006600"
-  context.font = "30px PixelBoy"
-  context.fillText("Game Over!", 230, 300)
-  context.fillText("Press the spacebar to play again.", 97, 350)
+  CONTEXT.fillStyle = CANVAS_BACKGROUND_COLOR
+  CONTEXT.fillRect(0, 0, CANVAS.width, CANVAS.height)
+  CONTEXT.fillStyle = "#006600"
+  CONTEXT.font = "30px PixelBoy"
+  CONTEXT.fillText("Game Over!", 230, 300)
+  CONTEXT.fillText("Press the spacebar to play again.", 97, 350)
 }
 
 function restartGame() {
